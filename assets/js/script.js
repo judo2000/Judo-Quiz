@@ -8,47 +8,95 @@ let listEl = document.createElement("ul");
 let index = 0;
 // initialize currentQuestion variable
 let currentQuestion;
+// initialize score and set to 0
+let score = 0;
 
+// Questions array
 const questions = [
   { 
     question: 'Who was the founder of judo?',
     options: ['Scott Moore', 'Heidi Moore', 'Jigoro Kano'],
-    anser: 2
+    answer: 2
   },
   { 
     question: 'In what year was judo founded?', 
     options: [1882, 1982, 1772],
-    anser: 0
+    answer: 0
   }
 ];
 
-
-//console.log(questions[index].question);
+// get the first question
 currentQuestion = questions[index].question;
+// set h2 text to the current question
 h2El.textContent = currentQuestion;
 // append current question in an h2 element to carousel div
 carousel.appendChild(h2El);
 // append the list element to the carousel div
 carousel.appendChild(listEl);
-listEl.innerHTML = "";
-//carousel.textContent = questions[index].question;
-//currentOptions = questions[index].options;
-for (let i = 0; i < questions[index].options.length; i++) {
-  // For each option, create an li at each iteration
-  const listItem = document.createElement('li');
+
+// function to build the list items and append them to the list element (ul)
+function buildList() {
+  // set innterHTML of list element to empty
+  listEl.innerHTML = "";
+  // iterate through current question options
+  for (let i = 0; i < questions[index].options.length; i++) {
+    // For each option, create an li at each iteration
+    const listItem = document.createElement('li');
+    // get the current current option in object from the array based on it's index
+    let currentOptions = questions[index].options[i];
+    // create a button element to append to the li
+    let button = document.createElement("button");
+    // cet button content = current option
+    button.setAttribute("data-index", i);
+    button.textContent = currentOptions;
+    //append button to list element on each iteration
+    listItem.appendChild(button);
+    listEl.appendChild(listItem);
+  }
+}
+
+function next() {
+  if (index <= questions.length ) {
+    //index = index + 1;
+    currentQuestion = questions[index].question;
+    h2El.textContent = currentQuestion;
+    buildList();
+  } 
+}
+
+
+function saveResults() {
+  listEl.innerHTML = "";
+  h2El.textContent = `You scored ${score}!`;
   
-  // get the current current option in object from the array based on it's index
-  const currentOptions = questions[index].options[i];
-  // create a button element to append to the li
-  let button = document.createElement("button");
-  // cet button content = current option
-  button.textContent = currentOptions;
-  //append button to list element on each iteration
-  listItem.appendChild(button);
-  listEl.appendChild(listItem);
-  console.log(listItem);
+  // add form for initials here
+
 }
 
 carousel.addEventListener('click', function(event) {
-  console.log(event.target);
+  var element = event.target;
+
+  // Checks if element is a button
+  if (element.matches("button") === true) {
+    // console.log("it is a button");
+    let elIndex = element.getAttribute("data-index");
+    console.log(elIndex);
+    let answer = questions[index].answer;
+    if (parseInt(elIndex) === answer) {
+      score++;
+    }
+    console.log("index ", index);
+    console.log("User Chose", elIndex);
+    console.log("answer", answer);
+    console.log("THE INDEX IS ", index);
+    index = index + 1;
+    if (index !== questions.length) {
+      next();
+    } else {
+      saveResults();
+    }
+  }
+  
 });
+
+buildList();
