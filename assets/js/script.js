@@ -1,26 +1,33 @@
-// target carosell div
+// target start game button
 const startBtn = document.getElementById("startBtn");
+// target play again button
 const playAgainBtn = document.getElementById("playAgainBtn");
+// set initial state of play agai button to display: none;
 playAgainBtn.style.display = "none";
-let carousel = document.querySelector("#carouselbox");
+//target carousel div
+const carousel = document.querySelector("#carouselbox");
+// target save button
+const saveBtn = document.createElement("button");
 // create h2 element
 let h2El = document.createElement("h2");
 //create ul element
 let listEl = document.createElement("ul");
 // set index to 0 so the first question will display in the crousel
 let index = 0;
-var secondsLeft ;
+// initialize secondsLeft and set to 0
+let secondsLeft = 0;
 // initialize currentQuestion variable
 let currentQuestion;
 // initialize score and set to 0
 let score = 0;
+// create empty highScores array
 let highScores = [];
+// initialize gameOver and set to true
 let gameOver = true;
+// target time div
 var timeEl = document.querySelector(".time");
+// target results div
 let results = document.querySelector("#results");
-
-//let secondsLeft = 10;
-
 
 // Questions array
 const questions = [
@@ -35,9 +42,6 @@ const questions = [
     answer: 0
   }
 ];
-
-
-
 
 // function to build the list items and append them to the list element (ul)
 function buildList() {
@@ -68,6 +72,7 @@ function buildList() {
   }
 }
 
+// function to move to next question
 function next() {
   if (index <= questions.length ) {
     //index = index + 1;
@@ -77,29 +82,11 @@ function next() {
   } 
 }
 
-// function saveScore() {
-  
-//   let initials = document.getElementById('userInitials').value;
-//   console.log(initials);
-  
-//   var user = {
-//     initials: initials,
-//     score: 2
-//   };
-//   // Get the existing data
-//   var storedUser = localStorage.getItem('user');
-//   console.log(storedUser);
-//   localStorage.setItem("user", JSON.stringify(user));
-//   //renderScores();
-// }
-
-var saveBtn = document.createElement("button");
-
+// function to show results
 function showResults() {
   listEl.innerHTML = "";
   h2El.textContent = `You scored ${score}!`;
-  // add form for initials here
-  
+
   var userInitials = document.createElement("input");
   userInitials.type = "text";
   userInitials.id = "userInitials"; // set the CSS class
@@ -110,6 +97,7 @@ function showResults() {
   console.log("showing results");
 }
 
+// Event listener for save button
 saveBtn.addEventListener('click', function() {
   let initials = document.getElementById('userInitials').value;
   console.log(initials);
@@ -120,8 +108,6 @@ saveBtn.addEventListener('click', function() {
   };
 
   var storedScores = JSON.parse(localStorage.getItem("scores"));
-
-  // If todos were retrieved from localStorage, update the todos array to it
   if (storedScores !== null) {
     highScores = storedScores;
   } 
@@ -146,44 +132,39 @@ carousel.addEventListener('click', function(event) {
     if (parseInt(elIndex) === answer) {
       score++;
       index = index + 1;
-    if (index !== questions.length) {
-      next();
-    } else {
-      secondsLeft = 0;
-      //clearInterval(timerInterval);
-      timeEl.style.display = 'none';
-      
-      if (gameOver === false) {
-        gameOver = true;
-        showResults();
+      if (index !== questions.length) {
+        next();
+      } else {
+        secondsLeft = 0;
+        //clearInterval(timerInterval);
+        timeEl.style.display = 'none';
+        
+        if (gameOver === false) {
+          gameOver = true;
+          showResults();
+        }
       }
-    }
     } else {
       secondsLeft -= 10;
       //setTime();
       index = index + 1;
-    if (index !== questions.length) {
-      next();
-    } else {
-      secondsLeft = 0;
-      //clearInterval(timerInterval);
-      timeEl.style.display = 'none';
-      
-      if (gameOver === false) {
-        gameOver = true;
-        showResults();
+      if (index !== questions.length) {
+        next();
+      } else {
+        secondsLeft = 0;
+        //clearInterval(timerInterval);
+        timeEl.style.display = 'none';
+        
+        if (gameOver === false) {
+          gameOver = true;
+          showResults();
+        }
       }
     }
-    }
-    // console.log("index ", index);
-    // console.log("User Chose", elIndex);
-    // console.log("answer", answer);
-    // console.log("THE INDEX IS ", index);
-    
   }
-  
 });
 
+// function to set timer
 function setTime() {
   // Sets interval in variable
   var timerInterval = setInterval(function() {
@@ -200,17 +181,15 @@ function setTime() {
         showResults();
       }
     }
-
   }, 1000);
 }
 
-
-
+// event listener for start game button
 startBtn.addEventListener('click', function() {
   startGame();
 });
 
-
+// renders scores to the screen
 function renderScores() {
    h2El.textContent = `High Scores!`;
    for (var i = 0; i < highScores.length; i++) {
@@ -223,11 +202,13 @@ function renderScores() {
   playAgainBtn.style.display = "block";
 }
 
+// event listener for play again button
 playAgainBtn.addEventListener('click', function() {
   playAgainBtn.style.display = "none";
   startGame();
 });
 
+// start game function
 function startGame() {
   highScores = [];
   index = 0;
@@ -241,4 +222,3 @@ function startGame() {
   startBtn.style.display = 'none';
   buildList();
 }
-
