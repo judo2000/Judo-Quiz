@@ -71,8 +71,23 @@ function next() {
   } 
 }
 
-
-
+function saveScore() {
+  
+  let initials = document.getElementById('userInitials');
+  
+  
+  console.log(initials);
+  var user = {
+    initials: initials.value,
+    score: 2
+  };
+  // Get the existing data
+  var storedUser = localStorage.getItem('user');
+  console.log(storedUser);
+localStorage.setItem("user", JSON.stringify(user));
+  renderScores();
+}
+var saveBtn = document.createElement("button");
 function showResults() {
   listEl.innerHTML = "";
   h2El.textContent = `You scored ${score}!`;
@@ -83,12 +98,15 @@ function showResults() {
   userInitials.type = "text";
   userInitials.id = "userInitials"; // set the CSS class
   results.appendChild(userInitials); // put it into the DOM
-  var saveBtn = document.createElement("button");
+  
   saveBtn.textContent = "Save";
   results.appendChild(saveBtn);
+  
 }
 
-
+saveBtn.addEventListener('click', function() {
+  results.innerHTML = "";
+});
 
 carousel.addEventListener('click', function(event) {
   var element = event.target;
