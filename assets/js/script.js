@@ -1,4 +1,5 @@
 // target carosell div
+const startBtn = document.getElementById("startBtn");
 let carousel = document.querySelector("#carouselbox");
 // create h2 element
 let h2El = document.createElement("h2");
@@ -10,6 +11,10 @@ let index = 0;
 let currentQuestion;
 // initialize score and set to 0
 let score = 0;
+var timeEl = document.querySelector(".time");
+let results = document.querySelector("#results");
+//let secondsLeft = 10;
+
 
 // Questions array
 const questions = [
@@ -25,17 +30,19 @@ const questions = [
   }
 ];
 
-// get the first question
-currentQuestion = questions[index].question;
-// set h2 text to the current question
-h2El.textContent = currentQuestion;
-// append current question in an h2 element to carousel div
-carousel.appendChild(h2El);
-// append the list element to the carousel div
-carousel.appendChild(listEl);
+
+
 
 // function to build the list items and append them to the list element (ul)
 function buildList() {
+  // get the first question
+  currentQuestion = questions[index].question;
+  // set h2 text to the current question
+  h2El.textContent = currentQuestion;
+  // append current question in an h2 element to carousel div 
+  carousel.appendChild(h2El);
+  // append the list element to the carousel div
+  carousel.appendChild(listEl);
   // set innterHTML of list element to empty
   listEl.innerHTML = "";
   // iterate through current question options
@@ -65,13 +72,23 @@ function next() {
 }
 
 
-function saveResults() {
+
+function showResults() {
   listEl.innerHTML = "";
   h2El.textContent = `You scored ${score}!`;
   
   // add form for initials here
-
+  
+  var userInitials = document.createElement("input");
+  userInitials.type = "text";
+  userInitials.id = "userInitials"; // set the CSS class
+  results.appendChild(userInitials); // put it into the DOM
+  var saveBtn = document.createElement("button");
+  saveBtn.textContent = "Save";
+  results.appendChild(saveBtn);
 }
+
+
 
 carousel.addEventListener('click', function(event) {
   var element = event.target;
@@ -84,6 +101,9 @@ carousel.addEventListener('click', function(event) {
     let answer = questions[index].answer;
     if (parseInt(elIndex) === answer) {
       score++;
+    } else {
+      secondsLeft -= 10;
+      setTime();
     }
     console.log("index ", index);
     console.log("User Chose", elIndex);
@@ -93,10 +113,38 @@ carousel.addEventListener('click', function(event) {
     if (index !== questions.length) {
       next();
     } else {
-      saveResults();
+      timeEl.style.display = 'none';
+      showResults();
     }
   }
   
 });
 
-buildList();
+var secondsLeft = 60;
+
+function setTime() {
+  // Sets interval in variable
+  var timerInterval = setInterval(function() {
+    secondsLeft--;
+    timeEl.textContent = secondsLeft + " seconds";
+    
+    if(secondsLeft === 0) {
+      // Stops execution of action at set interval
+      timeEl.style.display = 'none';
+      // Calls function to create and append image
+      showResults();
+    }
+
+  }, 1000);
+}
+
+startBtn.addEventListener('click', function() {
+  timeEl.textContent = secondsLeft + " seconds";
+  setTime();
+  startBtn.style.display = 'none';
+  buildList();
+});
+
+function renderScores() {
+  var lastGrade = JSON.parse(localStorage.getItem("studentGrade"));
+}
