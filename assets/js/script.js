@@ -65,6 +65,7 @@ function buildList() {
     let button = document.createElement("button");
     // cet button content = current option
     button.setAttribute("data-index", i);
+    button.setAttribute("class", "optionBtn");
     button.textContent = currentOptions;
     //append button to list element on each iteration
     listItem.appendChild(button);
@@ -198,7 +199,7 @@ function renderScores() {
     listEl.appendChild(listItem);
     results.appendChild(listEl);
   }
-  results.appendChild(playAgainBtn);
+  results.prepend(playAgainBtn);
   playAgainBtn.style.display = "block";
 }
 

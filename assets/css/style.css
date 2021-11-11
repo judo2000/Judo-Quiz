@@ -1,0 +1,69 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 1em;
+    line-height: 1.7;
+    background-color: gray;
+    color: #fff;
+}
+
+hr {
+    width: 100%;
+    border: 2px solid #fff;
+    border-radius: 5px;
+}
+
+.header {
+    /* I learned to do the backgrand gradient over the image from 
+    Advanced CSS and Sass: Flexbox, Grid, Annimation and More! - by Jonas Schmedtmann at https://www.udemy.com/ */
+    background-image: linear-gradient(
+        to right bottom,
+        rgba(17, 16, 16, 0.884), 
+        rgba(245, 17, 17, 0.5));
+    background-size: cover;
+    background-position: top;
+    color: #fff;
+    padding: 60px;
+}
+
+main {
+    
+    color: white;
+    min-height: 400px;
+}
+li {
+    list-style-type: none;
+}
+
+
+.centered {
+    text-align:center;
+}
+
+
+#playAgainBtn, #startBtn, li button {
+    width: 200px;
+    padding: 8px;
+    text-align: center;
+}
+
+#saveBtn {
+    width: 100px;
+    padding: 8;
+}
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #000;
+    color: white;
+    text-align: center;
+    height: 100px;
+  }
