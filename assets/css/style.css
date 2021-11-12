@@ -29,7 +29,12 @@ hr {
     background-size: cover;
     background-position: top;
     color: #fff;
-    padding: 40px;
+    padding: 20px;
+}
+
+.header_img img {
+    height: 100px;
+    border-radius: 100%;
 }
 
 main {
@@ -77,6 +82,7 @@ li button:hover {
 }
 
 footer {
+    position:fixed;
     left: 0;
     bottom: 0;
     width: 100%;
