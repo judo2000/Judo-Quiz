@@ -49,19 +49,37 @@ const questions = [
   { 
     question: 'What is the Japanes word for begin?',
     options: ['Hajemi', 'Matte', 'Morote'],
-    answer: 1
+    answer: 0
   }
 ];
+
+// function to set timer
+function setTime() {
+  // Sets interval in variable
+  var timerInterval = setInterval(function() {
+    secondsLeft--;
+    timeEl.textContent = secondsLeft + " seconds";
+    
+    if(secondsLeft <= 0) {
+      // Stops execution of action at set interval
+      clearInterval(timerInterval);
+      timeEl.style.display = 'none';
+      // Calls function to create and append image
+      if (gameOver === false) {
+        gameOver = true;
+        showResults();
+      }
+    }
+  }, 1000);
+}
 
 // function to build the list items and append them to the list element (ul)
 function buildList() {
   // get the first question
   currentQuestion = questions[index].question;
-  // set h2 text to the current question
+  // set questionEl text to the current question
   questionEl.textContent = currentQuestion;
-  // append current question in an h2 element to carousel div 
-  //carousel.appendChild(h2El);
-  // append the list element to the carousel div
+  // append the list element to the options div
   optionsEl.appendChild(listEl);
   // set innterHTML of list element to empty
   listEl.innerHTML = "";
@@ -73,7 +91,7 @@ function buildList() {
     let currentOptions = questions[index].options[i];
     // create a button element to append to the li
     let button = document.createElement("button");
-    // cet button content = current option
+    // set button content = current option
     button.setAttribute("data-index", i);
     button.setAttribute("class", "optionBtn");
     button.textContent = currentOptions;
@@ -106,14 +124,11 @@ function showResults() {
   saveBtn.textContent = "Save";
   saveBtn.setAttribute("id", "saveBtn");
   results.appendChild(saveBtn);
-  console.log("showing results");
 }
 
 // Event listener for save button
 saveBtn.addEventListener('click', function() {
   let initials = document.getElementById('userInitials').value;
-  console.log(initials);
-  
   var userScore = {
     initials: initials,
     score: score
@@ -124,8 +139,7 @@ saveBtn.addEventListener('click', function() {
     highScores = storedScores;
   } 
   highScores.push(userScore);
-
-  console.log(highScores);
+  
   // Get the existing data
   localStorage.setItem("scores", JSON.stringify(highScores));
   results.innerHTML = "";
@@ -137,9 +151,7 @@ optionsEl.addEventListener('click', function(event) {
 
   // Checks if element is a button
   if (element.matches("button") === true) {
-    // console.log("it is a button");
     let elIndex = element.getAttribute("data-index");
-    //console.log(elIndex);
     let answer = questions[index].answer;
     if (parseInt(elIndex) === answer) {
       score++;
@@ -176,63 +188,53 @@ optionsEl.addEventListener('click', function(event) {
   }
 });
 
-// function to set timer
-function setTime() {
-  // Sets interval in variable
-  var timerInterval = setInterval(function() {
-    secondsLeft--;
-    timeEl.textContent = secondsLeft + " seconds";
-    
-    if(secondsLeft <= 0) {
-      // Stops execution of action at set interval
-      clearInterval(timerInterval);
-      timeEl.style.display = 'none';
-      // Calls function to create and append image
-      if (gameOver === false) {
-        gameOver = true;
-        showResults();
-      }
-    }
-  }, 1000);
+// renders scores to the screen
+function renderScores() {
+  questionEl.textContent = `High Scores!`;
+  for (var i = 0; i < highScores.length; i++) {
+   listItem = document.createElement("li");
+   listItem.textContent = `${highScores[i].initials} - ${highScores[i].score}`;
+   listEl.appendChild(listItem);
+   results.appendChild(listEl);
+ }
+ results.prepend(playAgainBtn);
+ playAgainBtn.style.display = "block";
+ playAgainBtn.setAttribute("class", "text-center");
+}
+
+// event listener for play again button
+playAgainBtn.addEventListener('click', function() {
+ playAgainBtn.style.display = "none";
+ startGame();
+});
+
+// start game function
+function startGame() {
+ // the carousell starts with a display of none, set it to block so it is visible
+ carouselbox.style.display = "block";
+ // initialize the high scores array in case it is not empty
+ highScores = [];
+ // set the index to 0 in case it is not
+ index = 0;
+ // set scores to 0
+ score = 0;
+ // set time to could down from 60
+ secondsLeft = 60;
+ // make the timer visible
+ timeEl.style.display = 'block';
+ // call the set time function
+ setTime();
+ // set the game over variable to false
+ gameOver = false;
+ // set the timer element's text content to show how many seconds are left.
+ timeEl.textContent = secondsLeft + " seconds";
+ // set the start quize button to hidden
+ startBtn.style.display = 'none';
+ // call the function to buidl the list of options list
+ buildList();
 }
 
 // event listener for start game button
 startBtn.addEventListener('click', function() {
   startGame();
 });
-
-// renders scores to the screen
-function renderScores() {
-   questionEl.textContent = `High Scores!`;
-   for (var i = 0; i < highScores.length; i++) {
-    listItem = document.createElement("li");
-    listItem.textContent = `${highScores[i].initials} - ${highScores[i].score}`;
-    listEl.appendChild(listItem);
-    results.appendChild(listEl);
-  }
-  results.prepend(playAgainBtn);
-  playAgainBtn.style.display = "block";
-  playAgainBtn.setAttribute("class", "text-center");
-}
-
-// event listener for play again button
-playAgainBtn.addEventListener('click', function() {
-  playAgainBtn.style.display = "none";
-  startGame();
-});
-
-// start game function
-function startGame() {
-  carouselbox.style.display = "block";
-  highScores = [];
-  index = 0;
-  score = 0;
-  timeEl.style.display = 'block';
-  secondsLeft = 60;
-  setTime();
-  gameOver = false;
-  timeEl.textContent = secondsLeft + " seconds";
-  
-  startBtn.style.display = 'none';
-  buildList();
-}
