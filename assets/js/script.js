@@ -5,11 +5,14 @@ const playAgainBtn = document.getElementById("playAgainBtn");
 // set initial state of play agai button to display: none;
 playAgainBtn.style.display = "none";
 //target carousel div
-const carousel = document.querySelector("#carouselbox");
+//const carousel = document.querySelector("#carouselbox");
+const optionsEl = document.querySelector("#options");
+
 // target save button
 const saveBtn = document.createElement("button");
 // create h2 element
-let h2El = document.createElement("h2");
+//let h2El = document.createElement("h2");
+const questionEl = document.querySelector(".question");
 //create ul element
 let listEl = document.createElement("ul");
 // set index to 0 so the first question will display in the crousel
@@ -49,12 +52,11 @@ function buildList() {
   // get the first question
   currentQuestion = questions[index].question;
   // set h2 text to the current question
-  h2El.textContent = currentQuestion;
-  h2El.setAttribute("class", "question");
+  questionEl.textContent = currentQuestion;
   // append current question in an h2 element to carousel div 
-  carousel.appendChild(h2El);
+  //carousel.appendChild(h2El);
   // append the list element to the carousel div
-  carousel.appendChild(listEl);
+  optionsEl.appendChild(listEl);
   // set innterHTML of list element to empty
   listEl.innerHTML = "";
   // iterate through current question options
@@ -80,7 +82,7 @@ function next() {
   if (index <= questions.length ) {
     //index = index + 1;
     currentQuestion = questions[index].question;
-    h2El.textContent = currentQuestion;
+    questionEl.textContent = currentQuestion;
     buildList();
   } 
 }
@@ -88,7 +90,7 @@ function next() {
 // function to show results
 function showResults() {
   listEl.innerHTML = "";
-  h2El.textContent = `You scored ${score}!`;
+  questionEl.textContent = `You scored ${score}!`;
 
   var userInitials = document.createElement("input");
   userInitials.type = "text";
@@ -124,7 +126,7 @@ saveBtn.addEventListener('click', function() {
   renderScores();
 });
 
-carousel.addEventListener('click', function(event) {
+optionsEl.addEventListener('click', function(event) {
   var element = event.target;
 
   // Checks if element is a button
@@ -195,7 +197,7 @@ startBtn.addEventListener('click', function() {
 
 // renders scores to the screen
 function renderScores() {
-   h2El.textContent = `High Scores!`;
+   questionEl.textContent = `High Scores!`;
    for (var i = 0; i < highScores.length; i++) {
     listItem = document.createElement("li");
     listItem.textContent = `${highScores[i].initials} - ${highScores[i].score}`;
@@ -215,6 +217,7 @@ playAgainBtn.addEventListener('click', function() {
 
 // start game function
 function startGame() {
+  carouselbox.style.display = "block";
   highScores = [];
   index = 0;
   score = 0;

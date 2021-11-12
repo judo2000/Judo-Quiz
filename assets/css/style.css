@@ -44,15 +44,27 @@ main {
 
 li {
     list-style-type: none;
+    margin: 10px;
 }
 
+li button {
+    width: 200px;
+    padding: 8px;
+    text-align: center;
+    background-color: rgb(141, 42, 42);
+    color: #fff;
+}
+
+li button:hover {
+    background-color: rgba(17, 16, 16, 0.884)
+}
 
 .centered {
     text-align:center;
 }
 
 
-#playAgainBtn, #startBtn, li button {
+#playAgainBtn, #startBtn {
     width: 200px;
     padding: 8px;
     text-align: center;
@@ -74,4 +86,16 @@ footer {
     color: white;
     text-align: center;
     height: 100px;
+  }
+
+  .results {
+      color: #000;
+  }
+
+  .carouselbox {
+      display: none;
+  }
+
+  .card {
+    min-height: 300px;
   }
