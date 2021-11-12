@@ -11,6 +11,7 @@ body {
     line-height: 1.7;
     background-color: rgb(80, 78, 78);
     color: #fff;
+    min-height: 600px;
 }
 
 hr {
@@ -34,7 +35,7 @@ hr {
 
 main {
     color: white;
-    min-height: 600px;
+    
 }
 
 .question {
