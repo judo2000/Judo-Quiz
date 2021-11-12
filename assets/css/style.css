@@ -9,7 +9,7 @@ body {
     font-weight: 400;
     font-size: 1em;
     line-height: 1.7;
-    background-color: gray;
+    background-color: rgb(80, 78, 78);
     color: #fff;
 }
 
@@ -33,10 +33,14 @@ hr {
 }
 
 main {
-    
     color: white;
     min-height: 400px;
 }
+
+.question {
+    padding-bottom: 10px; 
+}
+
 li {
     list-style-type: none;
 }
@@ -51,12 +55,15 @@ li {
     width: 200px;
     padding: 8px;
     text-align: center;
+    background-color: rgb(190, 189, 189);
 }
 
 #saveBtn {
     width: 100px;
     padding: 8;
+    margin-left: 10px;
 }
+
 footer {
     position: fixed;
     left: 0;

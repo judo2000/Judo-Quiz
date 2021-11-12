@@ -25,9 +25,10 @@ let highScores = [];
 // initialize gameOver and set to true
 let gameOver = true;
 // target time div
-var timeEl = document.querySelector(".time");
+const timeEl = document.querySelector(".time");
 // target results div
-let results = document.querySelector("#results");
+const results = document.querySelector("#results");
+
 
 // Questions array
 const questions = [
@@ -49,6 +50,7 @@ function buildList() {
   currentQuestion = questions[index].question;
   // set h2 text to the current question
   h2El.textContent = currentQuestion;
+  h2El.setAttribute("class", "question");
   // append current question in an h2 element to carousel div 
   carousel.appendChild(h2El);
   // append the list element to the carousel div
@@ -94,6 +96,7 @@ function showResults() {
   results.appendChild(userInitials); // put it into the DOM
   
   saveBtn.textContent = "Save";
+  saveBtn.setAttribute("id", "saveBtn");
   results.appendChild(saveBtn);
   console.log("showing results");
 }
@@ -201,6 +204,7 @@ function renderScores() {
   }
   results.prepend(playAgainBtn);
   playAgainBtn.style.display = "block";
+  playAgainBtn.setAttribute("class", "text-center");
 }
 
 // event listener for play again button
