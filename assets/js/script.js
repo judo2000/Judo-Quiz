@@ -4,14 +4,11 @@ const startBtn = document.getElementById("startBtn");
 const playAgainBtn = document.getElementById("playAgainBtn");
 // set initial state of play agai button to display: none;
 playAgainBtn.style.display = "none";
-//target carousel div
-//const carousel = document.querySelector("#carouselbox");
+//target options div
 const optionsEl = document.querySelector("#options");
-
 // target save button
 const saveBtn = document.createElement("button");
-// create h2 element
-//let h2El = document.createElement("h2");
+//target the question element
 const questionEl = document.querySelector(".question");
 //create ul element
 let listEl = document.createElement("ul");
@@ -32,18 +29,27 @@ const timeEl = document.querySelector(".time");
 // target results div
 const results = document.querySelector("#results");
 
-
 // Questions array
 const questions = [
-  { 
-    question: 'Who was the founder of judo?',
-    options: ['Scott Moore', 'Heidi Moore', 'Jigoro Kano'],
-    answer: 2
-  },
   { 
     question: 'In what year was judo founded?', 
     options: [1882, 1982, 1772],
     answer: 0
+  },
+  { 
+    question: 'Who was the founder of judo?',
+    options: ['Bruce Lee', 'Jackie Chan', 'Jigoro Kano'],
+    answer: 2
+  },
+  { 
+    question: 'What is the name of the first judo school?',
+    options: ['The Budokan', 'The Kodokan', 'Tokyo School of Judo'],
+    answer: 1
+  }, 
+  { 
+    question: 'What is the Japanes word for begin?',
+    options: ['Hajemi', 'Matte', 'Morote'],
+    answer: 1
   }
 ];
 
