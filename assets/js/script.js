@@ -118,6 +118,7 @@ function showResults() {
 
   var userInitials = document.createElement("input");
   userInitials.type = "text";
+  userInitials.placeholder = "Enter your initials";
   userInitials.id = "userInitials"; // set the CSS class
   results.appendChild(userInitials); // put it into the DOM
   
