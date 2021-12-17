@@ -2,7 +2,7 @@
 const startBtn = document.getElementById("startBtn");
 // target play again button
 const playAgainBtn = document.getElementById("playAgainBtn");
-// set initial state of play agai button to display: none;
+// set initial state of play again button to display: none;
 playAgainBtn.style.display = "none";
 //target options div
 const optionsEl = document.querySelector("#options");
@@ -12,7 +12,7 @@ const saveBtn = document.createElement("button");
 const questionEl = document.querySelector(".question");
 //create ul element
 let listEl = document.createElement("ul");
-// set index to 0 so the first question will display in the crousel
+// set index to 0 so the first question will display in the carousel
 let index = 0;
 // initialize secondsLeft and set to 0
 let secondsLeft = 0;
@@ -47,8 +47,8 @@ const questions = [
     answer: 1
   }, 
   { 
-    question: 'What is the Japanes word for begin?',
-    options: ['Hajemi', 'Matte', 'Morote'],
+    question: 'What is the Japanese word for begin?',
+    options: ['Hajime', 'Mate', 'Morote'],
     answer: 0
   }
 ];
@@ -81,7 +81,7 @@ function buildList() {
   questionEl.textContent = currentQuestion;
   // append the list element to the options div
   optionsEl.appendChild(listEl);
-  // set innterHTML of list element to empty
+  // set innerHTML of list element to empty
   listEl.innerHTML = "";
   // iterate through current question options
   for (let i = 0; i < questions[index].options.length; i++) {
@@ -211,7 +211,7 @@ playAgainBtn.addEventListener('click', function() {
 
 // start game function
 function startGame() {
- // the carousell starts with a display of none, set it to block so it is visible
+ // the carousel starts with a display of none, set it to block so it is visible
  carouselbox.style.display = "block";
  // initialize the high scores array in case it is not empty
  highScores = [];
@@ -229,9 +229,9 @@ function startGame() {
  gameOver = false;
  // set the timer element's text content to show how many seconds are left.
  timeEl.textContent = secondsLeft + " seconds";
- // set the start quize button to hidden
+ // set the start quiz button to hidden
  startBtn.style.display = 'none';
- // call the function to buidl the list of options list
+ // call the function to build the list of options list
  buildList();
 }
 
